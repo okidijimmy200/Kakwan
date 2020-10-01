@@ -1,0 +1,18 @@
+
+// In this configuration, we specify that we need Babel to transpile the latest JavaScript
+// syntax with support for code in a Node.js environment and also React/JSX code
+{
+    "presets": [
+        ["@babel/preset-env",
+        {
+         "targets": {
+         "node": "current"
+          }
+         }
+        ],
+        "@babel/preset-react"
+        ],
+        "plugins": [
+        "react-hot-loader/babel"
+    ]
+}
