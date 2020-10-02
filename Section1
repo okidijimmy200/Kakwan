@@ -1,0 +1,59 @@
+INTRO TO MERN CLASSROOM:
+
+----This classroom application will support multiple
+user roles, the addition of course content and lessons, student enrollments, progress
+tracking, and course enrollment statistics. While building out this application, we
+will uncover more capabilities of this stack, such as how to implement role-based
+access to resources and actions, how to combine multiple schemas, and how to run
+different query operations in order to gather stats
+
+We will build out the online classroom application by covering the following topics in
+this chapter:
+---Introducing MERN Classroom
+--Adding an educator role to users
+--Adding courses to the classroom
+--Updating courses with lessons
+--Publishing courses
+--Enrolling in courses
+--Tracking progress and enrollment stats
+
+---MERN Classroom is a simple online classroom application, which allows educators to
+add courses that are made up of various lessons, while students can enroll on these
+courses. Additionally, the application will allow students to track their progress
+throughout the course, whereas instructors can monitor how many students have
+enrolled in/on a course, and how many have completed each course
+
+--The component tree in the following diagram lays out all the custom
+React components that make up the MERN Classroom frontend, and also exposes the
+composition structure that we will use to build out the views in the rest of the
+chapter:
+
+NB: checkout the component tree on pg 214
+
+Lecture 2:
+Updating the user with an educator role::
+--Users who sign up to the MERN Classroom application will have the choice to
+become an educator on the platform by selecting this option in the EditProfile
+form component. This option in the form will look as follows—showing when the
+user isn't an educator, versus when they choose to be an educator:
+
+--As pictured in the
+following screenshot, MERN Classroom will display a TEACH option in the
+navigation menu for educators only, that is, it won't be shown to regular users:
+
+--Adding a role to the user model::
+--add educator to user.model value
+--This educator value must be sent to the frontend, with the user details received once
+the user has successfully signed in, so that the view can be rendered accordingly to
+show information that is relevant to the educator
+
+--By sending this educator field value back in the response, we can render the
+frontend views with role-specific authorization considerations
+
+Updating the EditProfile view::
+--In order to become an educator in the MERN Classroom application, a signed-in user
+will need to update their profile. They will see a toggle in the EditProfile view, which
+will either activate or deactivate the educator feature
+
+--Once the EditProfile view has been successfully updated, the user details that are
+stored in sessionStorage for auth purposes should also be updated in auth.helper.js
