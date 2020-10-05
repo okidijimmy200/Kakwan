@@ -57,3 +57,23 @@ will either activate or deactivate the educator feature
 
 --Once the EditProfile view has been successfully updated, the user details that are
 stored in sessionStorage for auth purposes should also be updated in auth.helper.js
+
+
+Lecture 3:
+Rendering an option to teach
+--In this section, we will
+add the code to conditionally display a link to TEACH on the navigation bar, which
+will only be visible to the signed-in users who are also educators
+--in the menu.js file
+
+Lecture 4:
+Adding courses to the classroom::
+---we will walk through the implementations of the course-related
+features, such as adding new courses, listing courses by a specific instructor, and displaying the details of a single course. To store the course data and enable course
+management, we will start by implementing a Mongoose schema for courses, then backend APIs to create and list the courses, along with frontend views for both
+authorized educators and for regular users interacting with courses in the application.
+
+Defining a Course model::
+--will have
+simple fields to store course details, along with with an image, a category, whether
+the course is published or not, and a reference to the user who created the course.
