@@ -103,4 +103,23 @@ const remove = async(req, res, next) => {
     }
  }
 
-export default { create, userByID, read, list, remove, update}
+ /**isEducator ensures that the current user is actually an educator—before creating the new course. */
+ const isEducator = (req, res, next) => {
+    const isEducator = req.profile && req.profile.educator
+    if (!isEducator) {
+      return res.status('403').json({
+        error: "User is not an educator"
+      })
+    }
+    next()
+  }
+
+export default { 
+    create, 
+    userByID, 
+    read, 
+    list, 
+    remove, 
+    update,
+    isEducator
+}

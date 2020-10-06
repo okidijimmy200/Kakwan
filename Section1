@@ -77,3 +77,17 @@ Defining a Course model::
 --will have
 simple fields to store course details, along with with an image, a category, whether
 the course is published or not, and a reference to the user who created the course.
+
+Lecture 5:
+--a user who is signed in—and who is also an educator—will be
+able to create new courses
+--To implement this feature, in the following sections we
+will add a create course API in the backend, along with a way to fetch this API in the
+frontend, and a create new course form view that takes user input for course fields.
+
+The create course API::
+--backend, we will add a POST route that verifies that the current user is an educator, and then creates a
+new course with the course data passed in the request body
+--The image file for the course, if uploaded by the user, is stored in MongoDB as data.
+Then, in order to be shown in the views, it is retrieved from the database as an image
+file at a separate GET API route.
