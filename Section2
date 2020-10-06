@@ -1,0 +1,16 @@
+Lecture 1:
+Fetching the create API in the view::
+--the create method will be used in the new course form view to submit the user-entered
+course details to the backend to create a new course in the database
+
+The NewCourse component::
+--In order to allow educators to create new courses, we will add a React component
+that contains a form to the frontend of the application.
+
+--The form will contain an option to upload the course image, input fields for entering
+the course Name, Description, and Category; and the SUBMIT button, which will
+save the details that have been entered into the database.
+
+--The NewCourse component can only be viewed by a signed-in user who is also an
+educator. So, we will add a PrivateRoute to the MainRouter component, which
+will render this form only for authorized users at /teach/course/new.
