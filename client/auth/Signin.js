@@ -7,13 +7,9 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
 import { makeStyles } from '@material-ui/core/styles'
-import {create} from './api-user.js'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import {Link} from 'react-router-dom'
+import auth from './../auth/auth-helper'
+import {Redirect} from 'react-router-dom'
+import {signin} from './api-auth.js'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -41,69 +37,64 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Signup() {
+export default function Signin(props) {
   const classes = useStyles()
   const [values, setValues] = useState({
-    name: '',
-    password: '',
-    email: '',
-    open: false,
-    error: ''
+      email: '',
+      password: '',
+      error: '',
+      redirectToReferrer: false
   })
+
+  const clickSubmit = () => {
+    const user = {
+      email: values.email || undefined,
+      password: values.password || undefined
+    }
+
+    signin(user).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error})
+      } else {
+        auth.authenticate(data, () => {
+          setValues({ ...values, error: '',redirectToReferrer: true})
+        })
+      }
+    })
+  }
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
   }
 
-  const clickSubmit = () => {
-    const user = {
-      name: values.name || undefined,
-      email: values.email || undefined,
-      password: values.password || undefined
-    }
-    create(user).then((data) => {
-      if (data.error) {
-        setValues({ ...values, error: data.error})
-      } else {
-        setValues({ ...values, error: '', open: true})
+  const {from} = props.location.state || {
+      from: {
+        pathname: '/'
       }
-    })
+  }
+  const {redirectToReferrer} = values
+  if (redirectToReferrer) {
+      return (<Redirect to={from}/>)
   }
 
-    return (<div>
+  return (
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h6" className={classes.title}>
-            Sign Up
+            Sign In
           </Typography>
-          <TextField id="name" label="Name" className={classes.textField} value={values.name} onChange={handleChange('name')} margin="normal"/><br/>
           <TextField id="email" type="email" label="Email" className={classes.textField} value={values.email} onChange={handleChange('email')} margin="normal"/><br/>
           <TextField id="password" type="password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
           <br/> {
             values.error && (<Typography component="p" color="error">
               <Icon color="error" className={classes.error}>error</Icon>
-              {values.error}</Typography>)
+              {values.error}
+            </Typography>)
           }
         </CardContent>
         <CardActions>
           <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</Button>
         </CardActions>
       </Card>
-      <Dialog open={values.open} disableBackdropClick={true}>
-        <DialogTitle>New Account</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            New account successfully created.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Link to="/signin">
-            <Button color="primary" autoFocus="autoFocus" variant="contained">
-              Sign In
-            </Button>
-          </Link>
-        </DialogActions>
-      </Dialog>
-    </div>
     )
 }
