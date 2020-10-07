@@ -17,6 +17,8 @@ router.route('/api/courses/by/:userId')
 /**The image file for the course, if uploaded by the user, is stored in MongoDB as data.
 Then, in order to be shown in the views, it is retrieved from the database as an image
 file at a separate GET API route */
+// -------------------------------------------------------------
+/**retrieve all the courses that have been created by a given user */
 router.route('/api/courses/photo/:courseId')
   .get(courseCtrl.photo, courseCtrl.defaultPhoto)
 
@@ -32,6 +34,10 @@ router.route('/api/courses/:courseId')
   .delete(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.remove)
 
 router.param('courseId', courseCtrl.courseByID)
+/**To process the :userId param in the route and retrieve the associated user from the
+database, we will utilize the userByID method in our user controller */
+// -------------------------------------------------------------
+/**to maje user available in the request object as profile. */
 router.param('userId', userCtrl.userByID)
 
 export default router

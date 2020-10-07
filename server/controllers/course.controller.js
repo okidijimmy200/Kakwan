@@ -136,7 +136,12 @@ const create = (req, res) => {
       }
       next()
   }
-  
+/**The listByInstructor controller method in course.controller.js will query
+the Course collection in the database in order to get the matching courses, */
+// ---------------------------------------------------------------------------
+/**In the query to the Course collection, we find all the courses that have an
+instructor field that matches the user specified with the userId param. Then, the
+resulting courses are sent back in the response to the client. */
   const listByInstructor = (req, res) => {
     Course.find({instructor: req.profile._id}, (err, courses) => {
       if (err) {

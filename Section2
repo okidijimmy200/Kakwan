@@ -14,3 +14,19 @@ save the details that have been entered into the database.
 --The NewCourse component can only be viewed by a signed-in user who is also an
 educator. So, we will add a PrivateRoute to the MainRouter component, which
 will render this form only for authorized users at /teach/course/new.
+
+Lecture 2:
+Listing courses by educator
+---Authorized educators will be able to see a list of the courses that they have created on
+the platform.
+
+The list course API::
+---To process the :userId param in the route and retrieve the associated user from the
+database, we will utilize the userByID method in our user controller
+
+The MyCourses component::
+--In the MyCourses component, we will render the list of courses in a Material-UI
+List, after fetching the data from the server using the listByInstructor API. This
+component, as pictured in the following image, will function as the educator's
+dashboard, where their courses are listed and they have an option to add new
+courses:
