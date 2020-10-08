@@ -43,6 +43,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function Signup() {
   const classes = useStyles()
+/**we initialize the state using the useState hook with
+empty input field values, an empty error message, and set the dialog open variable to
+false. */
   const [values, setValues] = useState({
     name: '',
     password: '',
@@ -50,11 +53,16 @@ export default function Signup() {
     open: false,
     error: ''
   })
-
+   /**define two handler functions to be called when the input values change or
+the submit button is clicked. The handleChange function takes the new value that's
+entered in the input field and sets it as the state. */
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
   }
-
+/**The clickSubmit function is called when the form is submitted. It takes the input
+values from the state and calls the create fetch method to sign up the user with the
+backend. Then, depending on the response from the server, either an error message is
+shown or a success dialog is shown */
   const clickSubmit = () => {
     const user = {
       name: values.name || undefined,
@@ -70,6 +78,8 @@ export default function Signup() {
     })
   }
 
+/**In the return function, we compose and style the form components in the signup
+view using components such as TextField from Material-UI. */
     return (<div>
       <Card className={classes.card}>
         <CardContent>
@@ -89,6 +99,13 @@ export default function Signup() {
           <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</Button>
         </CardActions>
       </Card>
+
+{/* This return also contains an error message block, along with a Dialog component
+that is conditionally rendered depending on the signup response from the server. If
+the server returns an error, the error block that was added below the form, which we
+implemented in the preceding code, will render in the view with the corresponding
+error message. If the server returns a successful response, a Dialog component will
+be rendered instead. */}
       <Dialog open={values.open} disableBackdropClick={true}>
         <DialogTitle>New Account</DialogTitle>
         <DialogContent>
@@ -106,4 +123,9 @@ export default function Signup() {
       </Dialog>
     </div>
     )
+/**NB:
+ * On successful account creation, the user is given confirmation and asked to sign in
+using this Dialog component, which links to the Signin component, as shown in the
+following screenshot:
+ */
 }
