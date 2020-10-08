@@ -30,3 +30,39 @@ List, after fetching the data from the server using the listByInstructor API. Th
 component, as pictured in the following image, will function as the educator's
 dashboard, where their courses are listed and they have an option to add new
 courses:
+
+Lecture 3:
+Display a course
+--Users on the MERN Classroom application, including visitors, signed-in students,
+and educators alike, will all be able to browse through course pages, with interactions
+that are specific to their authorization level.
+
+A read course API::
+--In order to implement a read course API in the backend, we will start by declaring the
+GET route and the parameter-handling trigger,
+
+The Course component::
+--The Course component will render the individual course-specific details and user
+interactions,
+The completed Course component will contain the following parts:::
+***A section showing course details, which is visible to all visitors to this page.
+We will implement this part in this section.
+***A Lessons section, which contains a list of lessons and is visible to all
+visitors, and the option to add a new lesson, which will be visible only to
+the instructor of this course. We will implement the lessons part in the next
+section.
+***Edit, delete, and publish options, which are visible only to the instructor.
+This will be discussed later in the chapter.
+***An Enroll option, not pictured in the previous image, which will only be
+visible after the course has been published by the instructor. This will be
+implemented later in the chapter.
+
+--we will first retrieve the
+course details with a fetch call to the read API in a useEffect hook,
+
+--In order to load this Course component in the frontend, we will add a route to
+MainRouter as follows:
+
+--This route URL (/course/:courseId) can now be added into any component to link
+to a specific course, with the :courseId param replaced with the course's ID value
+

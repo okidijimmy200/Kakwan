@@ -1,4 +1,3 @@
-// temp code
 import React, {useState, useEffect}  from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -101,6 +100,11 @@ export default function Course ({match}) {
     })
   const [open, setOpen] = useState(false)
   const jwt = auth.isAuthenticated()
+/**we will first retrieve the
+course details with a fetch call to the read API in a useEffect hook and then we will
+set the received values to state, */
+// ------------------------------------------------------------------------------------------
+/**useEffect will only run when courseId changes in the route params. */
     useEffect(() => {
       const abortController = new AbortController()
       const signal = abortController.signal
@@ -164,9 +168,13 @@ export default function Course ({match}) {
   if (values.redirect) {
     return (<Redirect to={'/teach/courses'}/>)
   }
+/**imageUrl consists of the route that will retrieve the course image as a file response */
     const imageUrl = course._id
           ? `/api/courses/photo/${course._id}?${new Date().getTime()}`
           : '/api/courses/defaultphoto'
+/**In the view, we will render the received details, such as course name, description,
+category, image, and a link to the instructor's user profile in a Material-UI Card
+component, */
     return (
         <div className={classes.root}>
               <Card className={classes.card}>
@@ -178,6 +186,11 @@ export default function Course ({match}) {
                       </div>
                     }
                   action={<>
+{/* When the course instructor is signed in and views the course page, we will render the
+edit and other course data-modifying options in the Course component. */}
+{/* ------------------------------------------------------------------------- */}
+{/* If the current user is signed in, and their ID matches with the course instructor's ID,
+only then will the Edit option be rendered. */}
              {auth.isAuthenticated().user && auth.isAuthenticated().user._id == course.instructor._id &&
                 (<span className={classes.action}>
                   <Link to={"/teach/course/edit/" + course._id}>
@@ -203,6 +216,7 @@ export default function Course ({match}) {
             }
                 />
                 <div className={classes.flex}>
+              {/* imageUrl consists of the route that will retrieve the course image as a file response */}
                   <CardMedia
                     className={classes.media}
                     image={imageUrl}

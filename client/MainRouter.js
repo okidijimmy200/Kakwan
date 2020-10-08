@@ -25,6 +25,11 @@ const MainRouter = () => {
         <Route path="/signin" component={Signin}/>
         <PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
         <Route path="/user/:userId" component={Profile}/>
+  {/* In order to load the Course component in the frontend, we will add a route to
+MainRouter  */}
+{/* ---------------------------------------------------------------------------------------- */}
+{/* This route URL (/course/:courseId) can now be added into any component to link
+to a specific course, with the :courseId param replaced with the course's ID value */}
         <Route path="/course/:courseId" component={Course}/>
         <PrivateRoute path="/teach/courses" component={MyCourses}/>
 

@@ -29,7 +29,8 @@ const create = async (params, credentials, course) => {
       console.log(err)
     }
   }
-  
+/**use the fetch method to call the read course API in the React
+component that will render the course details */
   const read = async (params, signal) => {
     try {
       let response = await fetch('/api/courses/' + params.courseId, {

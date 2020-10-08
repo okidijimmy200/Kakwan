@@ -39,6 +39,8 @@ const create = (req, res) => {
   /**
    * Load course and append to req.
    */
+  /**The course object that is queried from the database will also contain the name and ID
+details of the instructor, as we specified in the populate() method. */
   const courseByID = async (req, res, next, id) => {
     try {
       let course = await Course.findById(id).populate('instructor', '_id name')
@@ -47,6 +49,8 @@ const create = (req, res) => {
           error: "Course not found"
         })
       req.course = course
+/**call to next() after this course object is attached to the request object invokes the read
+controller method. */
       next()
     } catch (err) {
       return res.status('400').json({
@@ -54,8 +58,11 @@ const create = (req, res) => {
       })
     }
   }
-  
+/**The read controller method then returns this course object in the
+response to the client, */
   const read = (req, res) => {
+/**We are removing the image field before sending the response, since images will be
+retrieved as files in separate routes. */
     req.course.image = undefined
     return res.json(req.course)
   }

@@ -28,11 +28,14 @@ router.route('/api/courses/defaultphoto')
 router.route('/api/courses/:courseId/lesson/new')
   .put(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.newLesson)
 
+  // implement a read course API using GET to query the Course collection with an ID and return the corresponding course in the response.
 router.route('/api/courses/:courseId')
   .get(courseCtrl.read)
   .put(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.update)
   .delete(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.remove)
 
+// :courseId param in the route URL will call the courseByID controller method, wch retrieves the course from the database, and
+// attaches it to the request object that is to be used in the next method,
 router.param('courseId', courseCtrl.courseByID)
 /**To process the :userId param in the route and retrieve the associated user from the
 database, we will utilize the userByID method in our user controller */
