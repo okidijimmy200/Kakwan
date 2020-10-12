@@ -107,7 +107,9 @@ retrieved as files in separate routes. */
       }
     })
   }
-  
+ /**In this newLesson controller method, we use findByIdAndUpdate (from MongoDB)
+to find the corresponding course document, and we update its lessons array field by
+pushing the new lesson object that was received in the request body. */ 
   const newLesson = async (req, res) => {
     try {
       let lesson = req.body.lesson
@@ -133,7 +135,10 @@ retrieved as files in separate routes. */
       })
     }
   }
-  
+  /**With the isInstructor method, we first check whether the signed-in user has the
+same user ID as the instructor of the given course. If the user is not authorized, an
+error is returned in the response, otherwise the next() middleware is invoked in
+order to execute the newLesson method. */
   const isInstructor = (req, res, next) => {
       const isInstructor = req.course && req.auth && req.course.instructor._id == req.auth._id
       if(!isInstructor){

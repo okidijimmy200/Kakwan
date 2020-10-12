@@ -245,12 +245,20 @@ only then will the Edit option be rendered. */}
                 </span>)
             }
                 />
+{/* The lessons for a specific course will be rendered in a list—along with a tally of the
+total number of lessons—on the Course page below the other course */}
+{/* ------------------------------------------------------------------------------------ */}
+{/* To render this list of lessons, we will update the Course component to iterate over
+the array of lessons with a map function, and each lesson will be displayed in a
+Material-UI ListItem component, */}
                 <List>
                 {course.lessons && course.lessons.map((lesson, index) => {
                     return(<span key={index}>
                     <ListItem>
                     <ListItemAvatar>
                         <Avatar>
+{/* The number beside each list item is calculated using the current index value of the
+array. */}
                         {index+1}
                         </Avatar>
                     </ListItemAvatar>

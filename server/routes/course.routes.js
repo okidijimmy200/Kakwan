@@ -25,6 +25,12 @@ router.route('/api/courses/photo/:courseId')
 router.route('/api/courses/defaultphoto')
   .get(courseCtrl.defaultPhoto)
 
+/**backend API that will allow us to add and store new lessons
+for a given course, we first need to declare a PUT route as follows: */
+// --------------------------------------------------------------------
+/**When this route gets a PUT request with the course ID in the URL, we will first use the
+isInstructor method to check whether the current user is the instructor for the
+course, and then we will save the lesson in the database with the newLesson method. */
 router.route('/api/courses/:courseId/lesson/new')
   .put(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.newLesson)
 

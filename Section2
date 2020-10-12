@@ -66,3 +66,57 @@ MainRouter as follows:
 --This route URL (/course/:courseId) can now be added into any component to link
 to a specific course, with the :courseId param replaced with the course's ID value
 
+Lecture 4:
+Updating courses with lessons::
+---Each course in the MERN Classroom will contain a list of lessons that make up the
+course content and what the students need to cover when they enroll.
+---putting more emphasis on the implementation of managing lessons and allowing students to go through lessons in
+order to complete a course.
+
+Storing lessons::
+--We need to define the lesson data structure and associate it with the course data
+structure before we can store and retrieve lesson details for each course.
+
+--defining the Lesson model, with a schema containing the title, the
+content, and the resource URL fields of the string type
+--To
+integrate lessons with the course structure, we will add a field called lessons in the
+Course model, which will store an array of lesson documents,
+
+Adding new lessons::
+---Educators on the MERN Classroom application will be able to add new lessons to the
+courses that they are still building and have not yet published.
+--first by implementing a backend API that
+adds lessons to an existing course, then by creating a frontend form view for entering
+and sending the new lesson details, and finally, by displaying the newly added
+lessons on the Course page.
+
+Adding a lesson API::
+--backend API that will allow us to add and store new lessons
+for a given course, we first need to declare a PUT route as follows:
+
+--When this route gets a PUT request with the course ID in the URL, we will first use the
+isInstructor method to check whether the current user is the instructor for the
+course, and then we will save the lesson in the database with the newLesson method.
+
+-In order to access this API to add a new lesson in the frontend, you will also need to
+add a corresponding fetch method, as we did for other API implementations.
+This API will be used in a form-based component that will take input from the user
+for each new lesson and then send it to the backend
+
+The NewLesson component::
+--In each course, while it is still unpublished, the instructor will be able to add a lesson
+by filling out a form.
+
+--The NewLesson component will receive the courseId value and an addLesson
+function as props from the parent component to which it will be added;
+
+--We make these required props by adding PropTypes
+validation to NewLesson.
+--These props will be needed in this component when the
+form is submitted.
+
+Displaying lessons:;
+--The lessons for a specific course will be rendered in a list—along with a tally of the
+total number of lessons—on the Course page below the other course
+

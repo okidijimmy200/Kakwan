@@ -1,5 +1,9 @@
 import mongoose from 'mongoose'
 
+/**defining the Lesson model, with a schema containing the title, the
+content, and the resource URL fields of the string type */
+// ------------------------------------------------------
+/**These schemas will let educators create and store basic lessons for their courses */
 const LessonSchema = new mongoose.Schema({
   title: String,
   content: String,
@@ -41,6 +45,8 @@ and updated changed when any course details are modified */
     type: Boolean,
     default: false
   },
+/**To integrate lessons with the course structure, we will add a field called lessons in the
+Course model, which will store an array of lesson documents, */
   lessons: [LessonSchema]
 })
 
