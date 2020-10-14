@@ -39,6 +39,9 @@ router.route('/api/courses/:courseId')
   .get(courseCtrl.read)
 // declare the PUT route that accepts the update request  for updating course from the client
   .put(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.update)
+// define a DELETE route
+/**This DELETE route takes the course ID as a URL parameter and checks if the current user is signed in and authorized to perform this delete, before proceeding to the
+remove controller method */
   .delete(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.remove)
 
 /**A PUT request that is received at the /api/courses/:courseId route first checks if

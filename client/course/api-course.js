@@ -63,6 +63,8 @@ component that will render the course details */
     }
   }
   
+  /**The fetch method will need to take the course ID and current user's
+auth credentials, then call the delete API with these values. */
   const remove = async (params, credentials) => {
     try {
       let response = await fetch('/api/courses/' + params.courseId, {

@@ -48,3 +48,32 @@ button will be added to each lesson item in the view
 Deleting a lesson::
 --each item rendered in the lessons list will have a delete
 option. The Delete button will be added in the view to each list item
+
+Lecture 2
+Deleting a course::
+--In the MERN Classroom application, instructors will be able to permanently delete
+courses if the course has not been published already
+
+The delete course API::
+-we will start with the delete route
+--This DELETE route takes the course ID as a URL parameter and checks if the current
+user is signed in and authorized to perform this delete, before proceeding to the
+remove controller method
+
+--to access this API in the front end, we use a fetch method with this route
+--The fetch method will need to take the course ID and current user's
+auth credentials, then call the delete API with these values.
+
+The DeleteCourse component::
+--The instructor for a course will see a delete option on the Course page when they are
+logged in and they are viewing an unpublished course. This delete option will be
+implemented in its own React component called DeleteCourse, and this component
+will be added to the Course component.
+--The DeleteCourse component is basically a
+button, which, when clicked, opens a Dialog component asking the user to confirm
+the delete action,
+
+--With this implementation, course instructors will be able to remove a course from the
+platform
+
+

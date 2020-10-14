@@ -200,6 +200,9 @@ only then will the Edit option be rendered. */}
                   </Link>
                 {!course.published ? (<>
                   <Button color="secondary" variant="outlined" onClick={clickPublish}>{course.lessons.length == 0 ? "Add atleast 1 lesson to publish" : "Publish"}</Button>
+    {/* user ID, the DeleteCourse component will take the course ID and the
+onRemove function definition from the Course component as props, when it is added
+to Course, */}
                   <DeleteCourse course={course} onRemove={removeCourse}/>
                 </>) : (
                   <Button color="primary" variant="outlined">Published</Button>

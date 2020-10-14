@@ -125,7 +125,8 @@ pushing the new lesson object that was received in the request body. */
       })
     }
   }
-  
+/**The remove method simply deletes the course document that corresponds to the
+provided ID from the Courses collection in the database. */
   const remove = async (req, res) => {
     try {
       let course = req.course
