@@ -37,6 +37,11 @@ to a specific course, with the :courseId param replaced with the course's ID val
 educator. So, we will add a PrivateRoute to the MainRouter component, which
 will render this form only for authorized users at /teach/course/new. */ }
         <PrivateRoute path="/teach/course/new" component={NewCourse}/>
+{/* In order to load EditCourse in the frontend of the application, we need to declare a
+frontend route for it. This component can only be viewed by a signed-in user who is
+also the instructor of the course. So, we will add a PrivateRoute in
+the MainRouter component, which will render this view only for authorized users
+at /teach/course/edit/:courseId */}
         <PrivateRoute path="/teach/course/edit/:courseId" component={EditCourse}/>
         <PrivateRoute path="/teach/course/:courseId" component={Course}/>
         <PrivateRoute path="/learn/:enrollmentId" component={Enrollment}/>

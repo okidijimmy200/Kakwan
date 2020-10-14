@@ -1,0 +1,50 @@
+Lecture 1:
+Editing a course::
+--Once a course has been added by an educator and there are more updates to be
+incorporated, the educator will be able to edit the details of the course as its
+instructor. Editing a course includes the ability to update its lessons, as well
+
+Updating the course API::
+--In the backend, we will need an API that allows an existing course to be updated if
+the user who is making the request is the authorized instructor of the given course.
+
+--A PUT request that is received at the /api/courses/:courseId route first checks if
+the signed-in user is the instructor of the course that is associated with the courseId
+provided in the URL. If the user is found to be authorized, the update controller is
+invoked
+
+The EditCourse component::
+--we will add a view for editing a course and it will have two sections.
+The first part will let the user change the course details, including the name, category,
+description, and image; and the second part will allow the modification of the lessons
+for the course.
+
+--In order to load EditCourse in the frontend of the application, we need to declare a
+frontend route for it. This component can only be viewed by a signed-in user who is
+also the instructor of the course. So, we will add a PrivateRoute in
+the MainRouter component, which will render this view only for authorized users
+at /teach/course/edit/:courseId
+
+Updating lessons::
+--In order to allow instructors to update the lessons that they have added to a course,
+we will add the following section in the EditCourse component, which will allow
+the user to edit the lesson details, rearrange the order of the lessons, and delete a
+lesson
+--The implementation of these lesson update features will mostly rely on array
+manipulation techniques.
+
+Editing lesson details::
+--Users will be able to edit the details of each field in a lesson in the EditCourse
+component
+--each item in the list of lessons will contain three
+TextFields for each of the fields in a lesson and will be prepopulated with the
+existing values of the fields
+
+Moving the lessons to rearrange the order::
+--While updating lessons, the user will also be able to reorder each lesson on the list.
+There will be an up arrow button for each lesson, except for the very first lesson. This
+button will be added to each lesson item in the view
+
+Deleting a lesson::
+--each item rendered in the lessons list will have a delete
+option. The Delete button will be added in the view to each list item

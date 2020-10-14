@@ -77,7 +77,7 @@ retrieved as files in separate routes. */
       })
     }
   }
-  
+//As the request body may contain a file upload, we are using formidable here to parse the multipart data.
   const update = async (req, res) => {
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
@@ -89,6 +89,8 @@ retrieved as files in separate routes. */
       }
       let course = req.course
       course = extend(course, fields)
+/**The lessons array is an array of nested objects, and we need
+to specifically parse and assign the lessons array to the course before saving it. */
       if(fields.lessons){
         course.lessons = JSON.parse(fields.lessons)
       }

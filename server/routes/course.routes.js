@@ -37,8 +37,15 @@ router.route('/api/courses/:courseId/lesson/new')
   // implement a read course API using GET to query the Course collection with an ID and return the corresponding course in the response.
 router.route('/api/courses/:courseId')
   .get(courseCtrl.read)
+// declare the PUT route that accepts the update request  for updating course from the client
   .put(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.update)
   .delete(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.remove)
+
+/**A PUT request that is received at the /api/courses/:courseId route first checks if
+the signed-in user is the instructor of the course that is associated with the courseId
+provided in the URL. If the user is found to be authorized, the update controller is
+invoked */
+
 
 // :courseId param in the route URL will call the courseByID controller method, wch retrieves the course from the database, and
 // attaches it to the request object that is to be used in the next method,

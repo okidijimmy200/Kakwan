@@ -1,4 +1,3 @@
-// temp code
 import React, {useState, useEffect}  from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -94,10 +93,14 @@ export default function EditCourse ({match}) {
       redirect: false,
       error: ''
     })
+  /**EditCourse. This component will first load the course details by calling the read fetch method in the
+useEffect hook */
     useEffect(() => {
       const abortController = new AbortController()
       const signal = abortController.signal
-  
+/**After successfully receiving the course data in the response, it will be set to the
+course variable in the state by calling setCourse, and it will be used to populate the
+view. */ 
       read({courseId: match.params.courseId}, signal).then((data) => {
         if (data.error) {
           setValues({...values, error: data.error})
@@ -111,22 +114,38 @@ export default function EditCourse ({match}) {
     }
   }, [match.params.courseId])
   const jwt = auth.isAuthenticated()
+/**The changes to the input fields will be handled in order to capture the newly entered
+values with the handleChange method */
   const handleChange = name => event => {
     const value = name === 'image'
     ? event.target.files[0]
     : event.target.value
     setCourse({ ...course, [name]: value })
   }
+/**In order to handle the changes made to the values in each field with the Textfield, we will define a
+handleLessonChange method, which will take the field name and the corresponding lesson's index in the array */
   const handleLessonChange = (name, index) => event => {
     const lessons = course.lessons
+/**The lessons array in the course is updated in the state, after setting the value in the
+specified field of the lesson at the provided index. This updated course with the
+modified lesson will get saved to the database when the user clicks Save in the
+EditCourse view. */
     lessons[index][name] =  event.target.value
     setCourse({ ...course, lessons: lessons })
   }
+  // When the Delete button is clicked, we will take the index of the lesson that is being deleted and remove it from the lessons array.
+  // -----------------------------------------------------------------------------------------------------------------------------------
+  /**In this function, we are splicing the array to remove the lesson from the given index, then adding the updated array in the course in the state. This new lesson array will be
+sent to the database with the course object when the user clicks the Save button in the EditCourse page */
   const deleteLesson = index => event => {
     const lessons = course.lessons
     lessons.splice(index, 1)
     setCourse({...course, lessons:lessons})
  }
+ /**When the user clicks the arrowUp button, the lesson in the current index will be moved up,
+and the lesson above it will be moved to its place in the array */
+// -----------------------------------------------------------------------------------------
+//The rearranged lessons array is then updated in the state, and will be saved to the database when the user saves the changes in the EditCourse page.
   const moveUp = index => event => {
       const lessons = course.lessons
       const moveUp = lessons[index]
@@ -134,12 +153,18 @@ export default function EditCourse ({match}) {
       lessons[index-1] = moveUp
       setCourse({ ...course, lessons: lessons })
   }
+  /**When the Save button is clicked, we will get all the course details and set it to
+FormData, which will be sent in the multipart format to the backend using the course
+update API */
   const clickSubmit = () => {
     let courseData = new FormData()
     course.name && courseData.append('name', course.name)
     course.description && courseData.append('description', course.description)
     course.image && courseData.append('image', course.image)
     course.category && courseData.append('category', course.category)
+/**The course lessons are also sent in this FormData, but as lessons are stored as an
+array of nested objects and FormData only accepts simple key-value pairs, we
+stringify the lessons value before assigning it. */
     courseData.append('lessons', JSON.stringify(course.lessons))
     update({
         courseId: match.params.courseId
@@ -231,14 +256,20 @@ export default function EditCourse ({match}) {
                         <Avatar>
                         {index+1}
                         </Avatar>
+{/* While updating lessons, the user will also be able to reorder each lesson on the list.There will be an up arrow button for each lesson, except for the very first lesson. This
+button will be added to each lesson item in the view */}
                      { index != 0 &&     
                       <IconButton aria-label="up" color="primary" onClick={moveUp(index)} className={classes.upArrow}>
+{/* When the user clicks this button, the lesson in the current index will be moved up,
+and the lesson above it will be moved to its place in the array */}
                         <ArrowUp />
                       </IconButton>
                      }
                     </>
                     </ListItemAvatar>
                     <ListItemText
+/**each item in the list of lessons will contain three TextFields for each of the fields in a lesson and will be prepopulated with the
+existing values of the fields */
                         primary={<><TextField
                             margin="dense"
                             label="Title"
@@ -263,6 +294,7 @@ export default function EditCourse ({match}) {
             value={lesson.resource_url} onChange={handleLessonChange('resource_url', index)}
           /><br/></>}
                     />
+{/* page, each item rendered in the lessons list will have a delete option. The Delete button will be added in the view to each list item */}
                     {!course.published && <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="up" color="primary" onClick={deleteLesson(index)}>
                         <DeleteIcon />
