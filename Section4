@@ -1,0 +1,18 @@
+Enrolling on courses::
+All visitors to the MERN Classroom application will have the option to sign in and
+then enroll on any of the published courses
+--Enrolling on a course would give them access to the lesson details and would allow them to go through the lessons
+systematically to complete the course.
+
+Lecture 1:
+Defining an Enrollment model::
+--We will define an Enrollment schema and model in order to store the details of each
+enrollment in the application
+--It will have fields to store the reference to the course
+being enrolled in and the user who is enrolling as a student. It will also store an array
+corresponding to the lessons in the associated course, which will store the completion
+status of each of the lessons for this student.
+--Additionally, we will store three
+timestamp values; the first value will signify when the student enrolled, the second
+value will indicate the last time that they completed a lesson or updated the
+enrollment, and finally, when they completed the course.
