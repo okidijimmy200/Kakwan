@@ -5,6 +5,7 @@ import authCtrl from '../controllers/auth.controller'
 
 const router = express.Router()
 
+/**GET request for published courses */
 router.route('/api/courses/published')
   .get(courseCtrl.listPublished)
 

@@ -104,3 +104,17 @@ PUBLISH the course or CANCEL the action.
 to add a new lesson, delete a course, and delete a lesson in both the Course and
 EditCourse components, in order to prevent the instructor from performing these
 actions after the course is already published.
+
+Lecture 4:
+Listing published courses::
+--All visitors to the MERN Classroom application will be able to access the published
+courses. In order to present these published courses, we will add the feature to
+retrieve all the published courses from the database, and display the courses in a list
+on the home page.
+
+The published courses API:
+
+The Courses component::
+--For displaying the list of published courses, we will design a component that takes
+the array of courses as props from the parent component that it is added to wch will be rendered
+in the home component.

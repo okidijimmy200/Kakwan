@@ -1,4 +1,3 @@
-//temp code
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
@@ -45,18 +44,23 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+
 export default function Courses(props){
   const classes = useStyles()
   const findCommon = (course) => {
     return !props.common.find((enrolled)=>{return enrolled.course._id == course._id})
   }
     return (
+  /**This Courses component will take these props and iterate through the array to
+render each course in a GridList component from Material-UI. */
         <GridList cellHeight={220} className={classes.gridList} cols={2}>
           {props.courses.map((course, i) => {
             return (
             findCommon(course) &&
               <GridListTile className={classes.tile} key={i} style={{padding:0}}>
                 <Link to={"/course/"+course._id}><img className={classes.image} src={'/api/courses/photo/'+course._id} alt={course.name} /></Link>
+{/* Each course in the list will display its name, category, and image, and will be linked
+to the individual course page */}
                 <GridListTileBar className={classes.tileBar}
                   title={<Link to={"/course/"+course._id} className={classes.tileTitle}>{course.name}</Link>}
                   subtitle={<span>{course.category}</span>}

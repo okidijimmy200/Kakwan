@@ -64,7 +64,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 8
   }
 }))
-
+/**For displaying the list of published courses, we will design a component that takes
+the array of courses as props from the parent component that it is added to. */
 export default function Home(){
   const classes = useStyles()
   const jwt = auth.isAuthenticated()
@@ -84,6 +85,8 @@ export default function Home(){
       abortController.abort()
     }
   }, [])
+  /**In the Home component, we will retrieve the list of published courses from the
+backend in a useEffect hook */
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
@@ -91,6 +94,9 @@ export default function Home(){
       if (data.error) {
         console.log(data.error)
       } else {
+/**Once the list of courses is received, it is set to the courses variable in the state. We
+will pass this courses array to the Courses component as props when it is added to
+the Home component, */
         setCourses(data)
       }
     })
@@ -113,6 +119,9 @@ export default function Home(){
         <Typography variant="h5" component="h2">
             All Courses
         </Typography>
+{/* Once the list of courses is received, it is set to the courses variable in the state. We
+will pass this courses array to the Courses component as props when it is added to
+the Home component, */}
         {(courses.length != 0 && courses.length != enrolled.length) ? (<Courses courses={courses} common={enrolled}/>) 
                              : (<Typography variant="body1" className={classes.noTitle}>No new courses.</Typography>)
         }

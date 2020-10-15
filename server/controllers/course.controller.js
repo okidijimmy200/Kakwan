@@ -167,7 +167,9 @@ resulting courses are sent back in the response to the client. */
       res.json(courses)
     }).populate('instructor', '_id name')
   }
-  
+/**A GET request to this route will invoke the listPublished controller method,
+which initiates a query to the Course collection for courses that have the published
+attribute's value as true. the resulting courses are returned in the response. */ 
   const listPublished = (req, res) => {
     Course.find({published: true}, (err, courses) => {
       if (err) {
