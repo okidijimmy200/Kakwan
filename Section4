@@ -16,3 +16,20 @@ status of each of the lessons for this student.
 timestamp values; the first value will signify when the student enrolled, the second
 value will indicate the last time that they completed a lesson or updated the
 enrollment, and finally, when they completed the course.
+
+Lecture 2:
+The create Enrollment API
+--When a user chooses to enroll in a course, we will create a new enrollment and store
+it in the backend.
+
+--A POST request received at this route will first check whether the
+user is authenticated, and then check whether they are already enrolled on this
+course, before creating a new enrollment for this user in this course.
+
+--The findEnrollment controller method will query the Enrollments collection in
+the database in order to check whether there is already an enrollment with the given
+course ID and user ID.
+
+--If a matching result is returned from the query, then the resulting enrollment will be
+sent back in the response, otherwise, the create controller method will be invoked to
+create a new enrollment.

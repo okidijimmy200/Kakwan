@@ -1,12 +1,22 @@
-// not real code
 import Enrollment from '../models/enrollment.model'
 import errorHandler from './../helpers/dbErrorHandler'
 
+/**If a matching result is returned from the query, then the resulting enrollment will be
+sent back in the response, otherwise, the create controller method will be invoked to
+create a new enrollment. */
+////////////////////////////////////////////////////////////////////////////////////////////////
+/**The create controller method generates a new enrollment object to be saved into the
+database from the course reference, user reference, and the lessons array in the given
+course */
 const create = async (req, res) => {
   let newEnrollment = {
     course: req.course,
     student: req.auth,
   }
+/**The lessons array in course is iterated over to generate the lessonStatus array of
+objects for the new enrollment document. Each object in the lessonStatus array has
+the complete value initialized to false. On successful saving of the new enrollment
+document based on these values, the new document is sent back in the response. */
   newEnrollment.lessonStatus = req.course.lessons.map((lesson)=>{
     return {lesson: lesson, complete:false}
   })
@@ -96,9 +106,14 @@ const listEnrolled = async (req, res) => {
     })
   }
 }
-
+/**The findEnrollment controller method will query the Enrollments collection in
+the database in order to check whether there is already an enrollment with the given
+course ID and user ID */
 const findEnrollment = async (req, res, next) => {
   try {
+/**If a matching result is returned from the query, then the resulting enrollment will be
+sent back in the response, otherwise, the create controller method will be invoked to
+create a new enrollment. */
     let enrollments = await Enrollment.find({course:req.course._id, student: req.auth._id})
     if(enrollments.length == 0){
       next()
