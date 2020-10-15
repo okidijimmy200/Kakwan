@@ -77,3 +77,30 @@ the delete action,
 platform
 
 
+Lecture 3:
+Publishing courses::
+--In the MERN Classroom, only courses that are published will be available to other
+users on the platform for enrollment. Once an instructor has created the course and
+updated it with lessons, they will have the option to publish it. Published courses will
+be listed on the home page, and all visitors will be able to view them.
+
+Implementing the publish option::
+--Instructors for each course will be given the option to publish their course after they
+have added at least one lesson to the course. Publishing a course will also mean that
+the course can no longer be deleted, new lessons cannot be added, and existing
+lessons cannot be deleted.
+
+Publish button states::
+--when the instructor is logged in, they will see the PUBLISH
+button in three states, depending on whether the course can be published or not, and
+whether it is already published
+
+Confirm to publish::
+--When the instructor clicks on the PUBLISH button, they will see a dialog box
+informing them of the consequences of this action, and giving them the options to
+PUBLISH the course or CANCEL the action.
+
+--This published attribute in the course can be used to conditionally hide the options
+to add a new lesson, delete a course, and delete a lesson in both the Course and
+EditCourse components, in order to prevent the instructor from performing these
+actions after the course is already published.

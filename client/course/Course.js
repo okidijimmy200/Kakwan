@@ -141,11 +141,21 @@ set the received values to state, */
   const addLesson = (course) => {
     setCourse(course)
   }
+  // When the PUBLISH button is clicked, we will open a dialog asking the user for confirmation.
   const clickPublish = () => {
+  /**clickPublish function will only open the dialog box if the length of the lessons
+array is more than zero; preventing the instructor from publishing a course without
+any lessons. */
     if(course.lessons.length > 0){    
       setOpen(true)
     }
   }
+  /**When the PUBLISH button on the dialog is clicked by the user as confirmation to
+publish the course, we will make an update API call to the backend, with the
+published attribute of the course set to true. */
+//////////////////////////////////////////////////////////////
+/**In this function, we are using the same update API that has already been defined and
+used for saving modifications to other course details from the EditCourse view. */
   const publish = () => {
     let courseData = new FormData()
       courseData.append('published', true)
@@ -198,11 +208,16 @@ only then will the Edit option be rendered. */}
                       <Edit/>
                     </IconButton>
                   </Link>
+{/* The states of this button will primarily depend on whether the published attribute
+of the course document is set to true or false, and on the length of the lessons
+array. */}
                 {!course.published ? (<>
                   <Button color="secondary" variant="outlined" onClick={clickPublish}>{course.lessons.length == 0 ? "Add atleast 1 lesson to publish" : "Publish"}</Button>
     {/* user ID, the DeleteCourse component will take the course ID and the
 onRemove function definition from the Course component as props, when it is added
 to Course, */}
+{/* --------------------------------------------------------------------------------------- */}
+{/* The delete option will only be rendered if the course is not already published. */}
                   <DeleteCourse course={course} onRemove={removeCourse}/>
                 </>) : (
                   <Button color="primary" variant="outlined">Published</Button>
@@ -276,6 +291,9 @@ array. */}
                 </List>
                 </div>
               </Card>
+{/* When the instructor clicks on the PUBLISH button, they will see a dialog box
+informing them of the consequences of this action, and giving them the options to
+PUBLISH the course or CANCEL the action. */}
               <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Publish Course</DialogTitle>
                 <DialogContent>
