@@ -33,3 +33,34 @@ course ID and user ID.
 --If a matching result is returned from the query, then the resulting enrollment will be
 sent back in the response, otherwise, the create controller method will be invoked to
 create a new enrollment.
+
+Lecture 3:
+The Enroll component
+--The Enroll component will simply contain a button that initiates the enrollment call
+to the backend, and redirects the user if the server returns successfully with the new
+enrollment document's ID. This component takes the ID of the associated course as a
+prop from the parent component from where it is added. This prop will be used while
+making the create enrollment API call.
+
+The Enrolled Course view::
+--For each course on which the user is enrolled, they will see a view that lists the details
+of the course, and each lesson in the course; with the option to complete each lesson.
+
+The read enrollment API::
+--A GET request at this route will first invoke the enrollmentByID method, since it
+contains the enrollmentId param in the URL declaration. The enrolmentByID
+method will query the Enrollments collection by the provided ID, and if a matching
+enrollment document is found, we ensure that the referenced course, the nested
+course instructor, and the referenced student details are also populated using the
+populate method from Mongoose.
+--The resulting enrollment object is attached to the request object and passed on to the
+next controller method. Before returning this enrollment object in the response to the
+client, we will check whether the currently signed-in user is the student who is
+associated with this specific enrollment in the isStudent method
+--The isStudent method checks whether the user who is identified by the auth
+credentials that were sent in the request matches the student who is referenced in the
+enrollment. If the two users don't match, a 403 status is returned with an error
+message, otherwise, the next controller method is invoked in order to return the
+enrollment object. The next controller method is the read method,
+--To use this read enrollment API in the frontend, you will also need to define a
+corresponding fetch method,

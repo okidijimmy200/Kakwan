@@ -22,6 +22,9 @@ router.route('/api/enrollment/stats/:courseId')
 router.route('/api/enrollment/complete/:enrollmentId')
   .put(authCtrl.requireSignin, enrollmentCtrl.isStudent, enrollmentCtrl.complete) 
 
+  //GET route that accepts the request which will return the enrollment details from the database
+  /**A GET request at this route will first invoke the enrollmentByID method, since it
+contains the enrollmentId param in the URL declaration. */
 router.route('/api/enrollment/:enrollmentId')
   .get(authCtrl.requireSignin, enrollmentCtrl.isStudent, enrollmentCtrl.read)
   .delete(authCtrl.requireSignin, enrollmentCtrl.isStudent, enrollmentCtrl.remove)

@@ -34,6 +34,12 @@ document based on these values, the new document is sent back in the response. *
 /**
  * Load enrollment and append to req.
  */
+/**A GET request at this route will first invoke the enrollmentByID method, since it
+contains the enrollmentId param in the URL declaration. The enrolmentByID
+method will query the Enrollments collection by the provided ID, and if a matching
+enrollment document is found, we ensure that the referenced course, the nested
+course instructor, and the referenced student details are also populated using the
+populate method from Mongoose. */
 const enrollmentByID = async (req, res, next, id) => {
   try {
     let enrollment = await Enrollment.findById(id)
@@ -85,14 +91,24 @@ const remove = async (req, res) => {
   }
 }
 
+/**The resulting enrollment object is attached to the request object and passed on to the
+next controller method. Before returning this enrollment object in the response to the
+client, we will check whether the currently signed-in user is the student who is
+associated with this specific enrollment in the isStudent method */
+////////////////////////////////////////////////////////////////////////////////////
+/**The isStudent method checks whether the user who is identified by the auth
+credentials that were sent in the request matches the student who is referenced in the
+enrollment. */
 const isStudent = (req, res, next) => {
   const isStudent = req.auth && req.auth._id == req.enrollment.student._id
+//If the two users don't match, a 403 status is returned with an error message, otherwise, the next controller method is invoked in order to return the enrollment object.
   if (!isStudent) {
     return res.status('403').json({
       error: "User is not enrolled"
     })
   }
   next()
+//The next controller method is the read method,
 }
 
 const listEnrolled = async (req, res) => {
