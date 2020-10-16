@@ -64,3 +64,27 @@ message, otherwise, the next controller method is invoked in order to return the
 enrollment object. The next controller method is the read method,
 --To use this read enrollment API in the frontend, you will also need to define a
 corresponding fetch method,
+
+
+Lecture 4:
+The Enrollment component FrontEnd
+--The Enrollment component will load the details of the course and the lessons that
+were received from the read enrollment API.
+
+--In this view, students will be able to go
+through each lesson in the course and mark each as complete. The lesson titles will be
+listed in a drawer, giving the student an overall idea of what the course contains, and
+how far they have progressed. Each item in the drawer will extend to reveal the
+details of the lesson,
+
+--To implement this view, first, we need to make a fetch call to the read enrollment API
+in the useEffect hook in order to retrieve the details of the enrollment and set it to
+state
+
+--Each of the items in the Lessons section of the drawer will also give the user a visual
+indication of whether the lesson has been completed, or is still incomplete. These
+check or uncheck icons will be rendered based on the Boolean value of the complete
+field in each item in the lessonStatus array.
+
+--This will render the details of the lesson that has been selected, which are the title,
+content, and resource URL values

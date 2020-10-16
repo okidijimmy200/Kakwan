@@ -1,4 +1,3 @@
-// temp code
 import React, {useState, useEffect}  from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -129,6 +128,9 @@ export default function Enrollment ({match}) {
     })
   const [totalComplete, setTotalComplete] = useState(0)
     const jwt = auth.isAuthenticated()
+/**To implement this view, first, we need to make a fetch call to the read enrollment API
+in the useEffect hook in order to retrieve the details of the enrollment and set it to
+state */
     useEffect(() => {
       const abortController = new AbortController()
       const signal = abortController.signal
@@ -150,6 +152,12 @@ export default function Enrollment ({match}) {
     setTotalComplete(count)
     return count
   }
+  /**To determine which drawer is currently selected, we will utilize the initialized drawer value to state with a -1. The -1 value will be associated with the Course
+Overview drawer item and view, whereas the index of each lessonStatus item will determine which lesson is displayed when selected from the drawer. When a drawer
+item is clicked, we will call the selectDrawer method, giving it either -1 or the index of the lesson clicked as its argument */
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**This selectDrawer method sets the drawer value in the state according to the item clicked on the drawer. The actual content view will also render conditionally,
+depending on this drawer value, */
   const selectDrawer = (index) => event => {
       setValues({...values, drawer:index})
   }
@@ -183,6 +191,9 @@ export default function Enrollment ({match}) {
     const imageUrl = enrollment.course._id
           ? `/api/courses/photo/${enrollment.course._id}?${new Date().getTime()}`
           : '/api/courses/defaultphoto'
+/**We will implement the drawer layout using Material-UI's Drawer component. In the
+drawer, we keep the first item as the Course Overview, which will give the user an
+overview of the course details, similar to the single course page */
     return (
         <div className={classes.root}>
       <Drawer
@@ -223,7 +234,12 @@ export default function Enrollment ({match}) {
         <ListItemText primary={<div className={classes.progress}><span>{totalComplete}</span> out of <span>{enrollment.lessonStatus.length}</span> completed</div>} />
           </ListItem>
       </List>
+      {/* after adding this first drawer item, we create a separate section
+for the lessons, where the lessonStatus array is iterated over to list the lesson titles
+in the drawer. */}
     </Drawer>
+{/* The course overview section can be designed and implemented according to the
+Course page In order to render the individual lesson details,we use card */}
               {values.drawer == - 1 && 
               <Card className={classes.card}>
                 <CardHeader
@@ -236,6 +252,10 @@ export default function Enrollment ({match}) {
                   action={
                     totalComplete == enrollment.lessonStatus.length &&
                 (<span className={classes.action}>
+{/* Each of the items in the Lessons section of the drawer will also give the user a visual
+indication of whether the lesson has been completed, or is still incomplete. These
+check or uncheck icons will be rendered based on the Boolean value of the complete
+field in each item in the lessonStatus array. */}
                   <Button variant="contained" color="secondary">
                     <CheckCircle /> &nbsp; Completed
                   </Button>
@@ -287,6 +307,8 @@ export default function Enrollment ({match}) {
                 </List>
                 </div>
             </Card> }
+{/* This will render the details of the lesson that has been selected, which are the title,
+content, and resource URL values */}
              {values.drawer != -1 && (<>
              <Typography variant="h5" className={classes.heading}>{enrollment.course.name}</Typography>
              <Card className={classes.card}>
