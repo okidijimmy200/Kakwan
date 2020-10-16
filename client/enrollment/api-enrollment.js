@@ -14,7 +14,7 @@ const create = async (params, credentials) => {
       console.log(err)
     }
   }
-  
+ // call the fetch API for courses enrolled starting with the completed ones 
   const listEnrolled = async (credentials, signal) => {
     try {
       let response = await fetch('/api/enrollment/enrolled', {

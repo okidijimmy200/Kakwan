@@ -116,8 +116,13 @@ const isStudent = (req, res, next) => {
 //The next controller method is the read method,
 }
 
+/**A GET request to '/api/enrollment/enrolled' route will invoke the listEnrolled controller method, which
+will query the database and return the results in the response to the client */
 const listEnrolled = async (req, res) => {
   try {
+/**The query to the Enrollments collection finds all enrollments with the student reference that matches the user ID that was received in the auth credentials of the
+currently signed-in user. The resulting enrollments will be populated with the referenced course's name and category values, and the list will be sorted so that the
+completed enrollments are placed after the incomplete enrollments. */
     let enrollments = await Enrollment.find({student: req.auth._id}).sort({'completed': 1}).populate('course', '_id name category')
     res.json(enrollments)
   } catch (err) {

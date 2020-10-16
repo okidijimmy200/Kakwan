@@ -5,6 +5,8 @@ import authCtrl from '../controllers/auth.controller'
 
 const router = express.Router()
 
+/**The list of enrollments API will take a GET request and query the Enrollments collection in order to find enrollments that have a student reference that matches with
+the user who is currently signed in. */
 router.route('/api/enrollment/enrolled')
   .get(authCtrl.requireSignin, enrollmentCtrl.listEnrolled)
 

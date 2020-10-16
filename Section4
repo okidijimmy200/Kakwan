@@ -125,3 +125,19 @@ the courseCompleted value in the request,
 --The student's lessons will have a check icon next to them, as an indication of which lessons are either complete or incomplete. We also give the student a number tally of
 how many were completed out of the total. The course is considered completed when all the lessons are done
 
+Lecture 6:
+Listing all enrollments for a user::
+--Once they are signed in to MERN Classroom, students will be able to view a list of all
+their enrollments on the home page.
+
+The list of enrollments API::
+--The list of enrollments API will take a GET request and query the Enrollments
+collection in order to find enrollments that have a student reference that matches with
+the user who is currently signed in.
+
+--The query to the Enrollments collection finds all enrollments with the student
+reference that matches the user ID that was received in the auth credentials of the
+currently signed-in user. The resulting enrollments will be populated with the
+referenced course's name and category values, and the list will be sorted so that the
+completed enrollments are placed after the incomplete enrollments.
+
