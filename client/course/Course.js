@@ -141,6 +141,8 @@ Course component in order to make a fetch call to the enrollment stats API, */
     setValues({...values, redirect:true})
   }
   const addLesson = (course) => {
+      /**addLesson update function,which was passed as a prop, is executed to render the latest lessons in the Course
+component. */
     setCourse(course)
   }
   // When the PUBLISH button is clicked, we will open a dialog asking the user for confirmation.
