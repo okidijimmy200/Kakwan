@@ -63,7 +63,12 @@ const read = (req, res) => {
 }
 
 const complete = async (req, res) => {
+  /**we use the updateOne action from MongoDB to update the enrollment document, which contains the lessonStatus object with the
+corresponding lessonStatusId value provided in the request. */
   let updatedData = {}
+/**In the resulting enrollment document, we update the complete field of the specific object in the lessonStatus array, and the updated field of the enrollment
+document. If a courseCompleted value is sent in the request, we also update the completed field in the enrollment document. Once the enrollment document is
+updated successfully, it is sent back in the response. */
   updatedData['lessonStatus.$.complete']= req.body.complete 
   updatedData.updated = Date.now()
   if(req.body.courseCompleted)

@@ -88,3 +88,40 @@ field in each item in the lessonStatus array.
 
 --This will render the details of the lesson that has been selected, which are the title,
 content, and resource URL values
+
+Lecture 5:
+Tracking progress and enrollment stats::
+--In a classroom application such as MERN Classroom, it can be valuable to let students
+visualize their progress in enrolled courses, and let instructors see how many
+students enrolled and completed their courses.
+
+--In this application, once a student is enrolled on a course, they will be able to go
+through each lesson in it, and mark it complete until all the lessons are done, and the
+whole course is complete. The application will leave visual cues to let a student know
+the state of their enrollments in courses. For instructors, once they publish a course,
+we will show the total number of students who enrolled on the course, and the total
+number of students who completed the course
+
+Completing lessons:::
+---We will have to extend both the enrollment APIs and the enrollment view
+implementation to allow students first to complete lessons, and then the whole
+course. We will add a lesson complete API in the backend and use this API in the
+frontend to mark a lesson as complete when the user performs this action.
+
+Lessons completed API::
+--in the complete controller API, we use the updateOne action from MongoDB to update the enrollment document, which contains the lessonStatus object with the
+corresponding lessonStatusId value provided in the request.
+we then inplment a similar for the frontend api
+
+Completed lessons from the view::
+--In the Enrollment component, in which we are rendering each lesson's details in the drawer view, we will give the student the option to mark the lesson as completed.
+This option will render conditionally, depending on whether the given lesson is already completed or not.
+
+--we prepare the values to
+be sent with the request in the updatedData object. We send the lessonStatus details, including the ID value and complete value set to true for the lesson that
+was completed by the user. We also calculate if the total number of completed lessons is equal to the total number of lessons, so that we can set and send
+the courseCompleted value in the request,
+
+--The student's lessons will have a check icon next to them, as an indication of which lessons are either complete or incomplete. We also give the student a number tally of
+how many were completed out of the total. The course is considered completed when all the lessons are done
+

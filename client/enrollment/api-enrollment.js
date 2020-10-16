@@ -63,7 +63,8 @@ const create = async (params, credentials) => {
       console.log(err)
     }
   }
-  
+/**To use this complete API endpoint in the frontend, you also need to define a corresponding fetch method like we did for other API implementations. This fetch
+method should make a PUT request to the complete enrollment route with related values sent in the request. */
   const complete = async (params, credentials, enrollment) => {
     try {
       let response = await fetch('/api/enrollment/complete/' + params.enrollmentId, {

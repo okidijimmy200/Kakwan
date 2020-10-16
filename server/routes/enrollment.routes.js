@@ -19,7 +19,11 @@ router.route('/api/enrollment/new/:courseId')
 router.route('/api/enrollment/stats/:courseId')
   .get(enrollmentCtrl.enrollmentStats)
 
+  /**complete API endpoint in the backend for enrollments, which will mark specified lessons as complete, and will also mark the enrolled course as
+completed when all the lessons are done. */
 router.route('/api/enrollment/complete/:enrollmentId')
+/**we will first make sure that the signed-in user is the student who is associated with this enrollment record, and
+then we will call the complete enrollment controller method */
   .put(authCtrl.requireSignin, enrollmentCtrl.isStudent, enrollmentCtrl.complete) 
 
   //GET route that accepts the request which will return the enrollment details from the database

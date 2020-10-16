@@ -148,7 +148,13 @@ state */
     }
   }, [match.params.enrollmentId])
   const totalCompleted = (lessons) => {
+/**The total number of completed lessons is calculated using the totalCompleted function, */
+//////////////////////////////////////////////////////////////////////////////////////////////
+/**We use the array reduce function to find and tally the count for the completed lessons in the lessonStatus array. This count value is also stored in the state, so that
+it can be rendered in the view at the bottom of the drawer, */
     let count = lessons.reduce((total, lessonStatus) => {return total + (lessonStatus.complete ? 1 : 0)}, 0)
+/**The student's lessons will have a check icon next to them, as an indication of which lessons are either complete or incomplete. We also give the student a number tally of
+how many were completed out of the total. The course is considered completed when all the lessons are done */
     setTotalComplete(count)
     return count
   }
@@ -161,12 +167,16 @@ depending on this drawer value, */
   const selectDrawer = (index) => event => {
       setValues({...values, drawer:index})
   }
+  /**markComplete function, which will make the API call to update the enrollment in the
+database */
   const markComplete = () => {
       if(!enrollment.lessonStatus[values.drawer].complete){
         const lessonStatus = enrollment.lessonStatus
         lessonStatus[values.drawer].complete = true
         let count = totalCompleted(lessonStatus)
-
+/**we prepare the values to be sent with the request in the updatedData object. We send the lessonStatus
+details, including the ID value and complete value set to true for the lesson that was completed by the user. We also calculate if the total number of completed lessons
+is equal to the total number of lessons, so that we can set and send the courseCompleted value in the request, */
         let updatedData = {}
         updatedData.lessonStatusId = lessonStatus[values.drawer]._id
         updatedData.complete = true
@@ -313,7 +323,12 @@ content, and resource URL values */}
              <Typography variant="h5" className={classes.heading}>{enrollment.course.name}</Typography>
              <Card className={classes.card}>
                 <CardHeader
+/**In the Enrollment component, in which we are rendering each lesson's details in the drawer view, we will give the student the option to mark the lesson as completed.
+This option will render conditionally, depending on whether the given lesson is
+already completed or not. */
                   title={enrollment.course.lessons[values.drawer].title}
+/**If the given lessonStatus object has the complete attribute set to true, then we render a filled-out button with the text Completed, otherwise an outlined button is
+rendered with the text Mark as complete */
                   action={<Button onClick={markComplete} variant={enrollment.lessonStatus[values.drawer].complete? 'contained' : 'outlined'} color="secondary">{enrollment.lessonStatus[values.drawer].complete? "Completed" : "Mark as complete"}</Button>} />
                   <CardContent> 
                       <Typography variant="body1" className={classes.para}>{enrollment.course.lessons[values.drawer].content}</Typography>
