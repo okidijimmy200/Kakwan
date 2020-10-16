@@ -152,7 +152,9 @@ create a new enrollment. */
     })
   }
 }
-
+/**In this enrollmentStats method, we run two queries against the Enrollments collection using the course ID that is provided in the request. In the first query, we
+simply find all the enrollments for the given course, and count these results using MongoDB's countDocuments(). In the second query, we find all the enrollments for
+the given course, and also check whether the completed field exists in these enrollments. Then we finally get the count of these results. */
 const enrollmentStats = async (req, res) => {
   try {
     let stats = {}

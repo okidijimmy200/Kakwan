@@ -18,6 +18,10 @@ course, before creating a new enrollment for this user in this course. */
 router.route('/api/enrollment/new/:courseId')
   .post(authCtrl.requireSignin, enrollmentCtrl.findEnrollment, enrollmentCtrl.create)  
 
+  /**GET route that will query the Enrollments collection in the database to calculate the stats for a specific course */
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**A GET request at this URL will return a stats object containing the total enrollments and total completions for the course, as identified by the courseId provided in the
+URL parameter. */
 router.route('/api/enrollment/stats/:courseId')
   .get(enrollmentCtrl.enrollmentStats)
 

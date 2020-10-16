@@ -120,6 +120,8 @@ set the received values to state, */
       abortController.abort()
     }
   }, [match.params.courseId])
+/**To retrieve these enrollment stats, we will add a second useEffect hook in the
+Course component in order to make a fetch call to the enrollment stats API, */
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
@@ -224,6 +226,8 @@ to Course, */}
                 )}
                 </span>)
              }
+{/* This will receive the enrollment stats for the given course and set it to the stats
+variable in state, and we can render it in the view */}
                 {course.published && (<div>
                   <span className={classes.statSpan}><PeopleIcon /> {stats.totalEnrolled} enrolled </span>
                   <span className={classes.statSpan}><CompletedIcon/> {stats.totalCompleted} completed </span>

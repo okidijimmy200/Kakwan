@@ -54,12 +54,18 @@ export default function Enrollments(props){
     return (
       <div>
         <GridList cellHeight={120} className={classes.gridList} cols={4}>
+{/* The Enrollments component will be rendered on the Home page, and it will take
+the list of enrollments as props from the Home component. In Enrollments, instead of courses, the
+enrollments received from the Home component will be iterated over to render each
+enrollment */}
           {props.enrollments.map((course, i) => (
             <GridListTile key={i} className={classes.tile}>
               <Link to={"/learn/"+course._id}><img className={classes.image} src={'/api/courses/photo/'+course.course._id} alt={course.course.name} /></Link>
               <GridListTileBar className={classes.tileBar}
                 title={<Link to={"/learn/"+course._id} className={classes.tileTitle}>{course.course.name}</Link>}
                 actionIcon={<div className={classes.action}>
+{/* Based on whether the individual enrollment already has a complete date value or not, we will render the icons conditionally. This will give the users an idea of which
+enrolled courses they have completed, and which they are yet to finish. */}
                  {course.completed ? (<CompletedIcon color="secondary"/>)
                  : (<InProgressIcon className={classes.progress} />)
                 }</div>}

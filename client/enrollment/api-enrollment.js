@@ -30,7 +30,7 @@ const create = async (params, credentials) => {
       console.log(err)
     }
   }
-
+//fetch method on the client that will make the GET request to this route.
   const enrollmentStats = async (params, credentials, signal) => {
     try {
       let response = await fetch('/api/enrollment/stats/'+params.courseId, {

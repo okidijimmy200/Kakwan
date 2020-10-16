@@ -126,7 +126,7 @@ the courseCompleted value in the request,
 how many were completed out of the total. The course is considered completed when all the lessons are done
 
 Lecture 6:
-Listing all enrollments for a user::
+Listing all enrollments for a user Backend API::
 --Once they are signed in to MERN Classroom, students will be able to view a list of all
 their enrollments on the home page.
 
@@ -141,3 +141,29 @@ currently signed-in user. The resulting enrollments will be populated with the
 referenced course's name and category values, and the list will be sorted so that the
 completed enrollments are placed after the incomplete enrollments.
 
+Lecture 7:
+The Enrollments component Front end:
+--The Enrollments component will be rendered on the Home page, and it will take
+the list of enrollments as props from the Home component. The received list of
+enrollments will be rendered in this component in order to show the user the courses
+on which they are enrolled. We will also indicate if an enrolled course in the list has
+been completed, or is in progress, using representative icons for each state, as shown
+in the following screenshot:
+
+--Based on whether the individual enrollment already has a complete date value or
+not, we will render the icons conditionally. This will give the users an idea of which
+enrolled courses they have completed, and which they are yet to finish.
+
+Enrollment stats::
+--Once the instructor publishes a course, and other users in the application start
+enrolling and completing lessons in the course, we will show the total number of
+enrollments and course completions as simple enrollment statistics for the course.
+
+The enrollment stats API::
+--A GET request at this URL will return a stats object containing the total enrollments
+and total completions for the course, as identified by the courseId provided in the
+URL parameter.
+
+Displaying enrollment stats for a published course::
+--The enrollment stats can be retrieved from the backend and rendered in the Course
+view
